@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const eat = {
+        getEat:() => '🍗',
+    };
+    const drink = {
+        getDrink:() => '🍺'
+    };
+    let subday = {
+        __proto__ : drink,
+        getDrink(){
+            return super.getDrink() + '🎧'
+        }
+    }
+    console.log(subday.getDrink())
+</script>
+</html>
