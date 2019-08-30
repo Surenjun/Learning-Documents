@@ -131,5 +131,28 @@
 >}
 >```
 >
+
+### React
+
+>1·componentWillMount方法的调用在constructor之后，在render之前，在这方法的代码调用setState方法是不会触发重渲染
+>
+>2·`React.memo` 为[高阶组件](https://zh-hans.reactjs.org/docs/higher-order-components.html)。它与 [`React.PureComponent`](https://zh-hans.reactjs.org/docs/react-api.html#reactpurecomponent) 非常相似，但它适用于函数组件，但不适用于 class 组件。
+>
+>```javascript
+>function MyComponent(props) {
+>  /* 使用 props 渲染 */
+>}
+>function areEqual(prevProps, nextProps) {
+>  /*
+>  如果把 nextProps 传入 render 方法的返回结果与
+>  将 prevProps 传入 render 方法的返回结果一致则返回 true，
+>  否则返回 false
+>  */
+>}
+>export default React.memo(MyComponent, areEqual);
+>```
+>
+>
+>
 >
 
