@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        //函子：一个范畴转成另一个范畴
+
+        //特性：一般约定 函子会有一个map和of方法
+        class Functor{
+            constructor(x){
+                this._value = x;
+            }
+            //map方法将容器里面的每一个值，映射到另一个容器
+            map(f){
+                return new Functor(f(this._value))
+            }
+            //of方法用来生成新的容器
+            static of(x){
+                return new Functor(x)
+            }
+        }
+        /*Functor.of(3)
+            .map(x => x + 1)             //结果 Container(4)
+            .map(x => 'Result is ' + x); //结果 Container('Result is 4')*/
+
+        /**************************************************************************************************************/
+
+        //Maybe函子
+
+        /*
+        * 函子接受各种函数，处理容器内部的值。这里就有一个问题，容器内部的值可能是一个 空值（比如null），而外部函数未必有处理空值的机制，
+        * 如果传入空值，很可能就会出错。
+        * */
+        class Maybe extends Functor{
+            map(f) {
+                return this.isNothing() ? Maybe.of(f(this._value)) : Maybe.of(null);
+            }
+            //检测传入的值是否为空
+            isNothing(){
+                return Boolean(this._value)
+            }
+            static of(x){
+                return new Maybe(x)
+            }
+        }
+        Maybe.of(null).map(x => x.toUpperCase());
+
+        //Either函子
+
+        /**
+         * 条件运算 if...else 是最常见的运算之一，函数式编程里面，使用 Either 函子表达。Either函子内部有两个值：左值（Left）
+         * 和右值（Right）。右值是正常情况下使用的值，左值是右值不存在时使用的默认值。
+         */
+        class Either extends Functor{
+            constructor(left,right){
+                super();
+                this.left = left;
+                this.right = right;
+            }
+            map(f){
+                //检测右部是否有值
+                return this.right
+                    ? Either.of(this.left, f(this.right))
+                    : Either.of(f(this.left), this.right);
+            }
+            static of(left , right){
+                return new Either(left , right)
+            }
+        }
+        //test
+        Either.of(2, 1).map(a => a + 1);    // => Either { left: 2, right: 2}
+        Either.of(3, null).map(a => a + 1); // => Either { left: 4, right: null}
+
+        //Either函子模拟错误处理 代替try...catch...
+
+        const Left = x => { this._value = x };
+        const Right = x => { this._value = x };
+
+        Left.of = x => new Left(x);
+        Right.of = x => new Right(x);
+    </script>
+</body>
+</html>
