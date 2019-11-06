@@ -48,6 +48,8 @@
         }
         Maybe.of(null).map(x => x.toUpperCase());
 
+        /**************************************************************************************************************/
+
         //Either函子
 
         /**
@@ -70,17 +72,43 @@
                 return new Either(left , right)
             }
         }
+
         //test
         Either.of(2, 1).map(a => a + 1);    // => Either { left: 2, right: 2}
         Either.of(3, null).map(a => a + 1); // => Either { left: 4, right: null}
 
         //Either函子模拟错误处理 代替try...catch...
 
-        const Left = x => { this._value = x };
-        const Right = x => { this._value = x };
-
+        /**
+         * Left 和 Right 唯一的区别就在于 map 方法的实现，Right.map 的行为和我们之前提到的 map 函数一样。但是 Left.map 就很不
+         * 同了：它不会对容器做任何事情，只是很简单地把这个容器拿进来又扔出去。这个特性意味着，Left 可以用来传递一个错误消息。
+         */
+        const Left = function (x) {this._value = x};
+        const Right = function (x) {this._value = x};
         Left.of = x => new Left(x);
         Right.of = x => new Right(x);
+        Left.prototype.map = function () {
+            return this._value;
+        };
+        Right.prototype.map = function (f) {
+            return Right.of(f(this._value));
+        };
+
+        const getAge = user => user.age ? Right.of(user.age) : Left.of("ERROR!");
+        getAge({name: 'stark', age: '21'}).map(age => 'Age is ' + age); // => Right {_value: "Age is 21"}
+        getAge({name: 'stark'}).map(age => 'Age is ' + age);            // => Left {_value: "ERROR!"}
+
+        /**************************************************************************************************************/
+
+        //AP函子
+        /*函子里面包含的值，完全可能是函数。我们可以想象这样一种情况，一个函子的值是数值，另一个函子的值是函数
+         */
+        class Ap extends Functor {
+            ap(F) {
+                return Ap.of(this.val(F.val));
+            }
+        }
+        Ap.of(addTwo).ap(Functor.of(2))
     </script>
 </body>
 </html>
