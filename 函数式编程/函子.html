@@ -111,7 +111,7 @@
         const addTwo = function(x){
             return x + 1;
         };
-        Ap.of(addTwo).ap(Functor.of(2))
+        Ap.of(addTwo).ap(Functor.of(2));
 
         /**************************************************************************************************************/
 
@@ -127,6 +127,25 @@
         IO.of = x => new IO(_ => x);
         
         const compose = (fn, ...fns) => fns.length === 0 ? fn: (...args) => fn(compose(...fns)(...args));
+
+        //Monad函子
+        /*
+         * Monad函⼦的作⽤是，总是返回⼀个单层的函⼦。它有⼀个flatMap⽅法，与map⽅法作⽤相同，唯⼀的区别是如果⽣成了⼀个嵌套函⼦，
+         * 它会取出后者内部的值，保证返回的永远是⼀个单层的容器，不会出现嵌套的情况。
+         *
+         * 如果函数f返回的是⼀个函⼦，那么this.map(f)就会⽣成⼀个嵌套的函⼦。所以，join⽅法保证了flatMap⽅法总是返回⼀个单层的函⼦。
+         * 这意味着嵌套的函⼦会被铺平（flatten）。
+         */
+
+        class Monad extends Functor{
+            join(){
+                return this._value
+            }
+            flatMap(f){
+                return this.map(f).join()
+            }
+        }
+        Monad.of(Maybe.of(Maybe.of({name:'Mulburry',number:8402})))
     </script>
 </body>
 </html>
