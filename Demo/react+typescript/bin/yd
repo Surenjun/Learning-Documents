@@ -1,8 +1,8 @@
 #!/usr/local/bin node
 const mockdata = {
-    data: "京程一灯 🏮",
+    data: "🏮",
     result: {
-        title: "冲击月薪三万"
+        title: "咿呀咿呀哦"
     }
 }
 let json2ts = require("json2ts");

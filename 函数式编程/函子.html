@@ -108,7 +108,25 @@
                 return Ap.of(this.val(F.val));
             }
         }
+        const addTwo = function(x){
+            return x + 1;
+        };
         Ap.of(addTwo).ap(Functor.of(2))
+
+        /**************************************************************************************************************/
+
+        //IO函子
+        /*
+         *IO 跟前面那几个 Functor 不同的地方在于，它的 __value 是一个函数。它把不纯的操作（比如 IO、网络请求、DOM）包裹到一个函数
+         * 内，从而延迟这个操作的执行。所以我们认为，IO 包含的是被包裹的操作的返回值。
+         */
+        
+        const IO = function (f) {
+            this._value = f;
+        };
+        IO.of = x => new IO(_ => x);
+        
+        const compose = (fn, ...fns) => fns.length === 0 ? fn: (...args) => fn(compose(...fns)(...args));
     </script>
 </body>
 </html>
