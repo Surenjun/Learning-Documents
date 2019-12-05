@@ -8,13 +8,29 @@
 
 </body>
 <script>
-    console.time("a");
-    for (let a = 1; a < 10000000; a++) {}
-    console.timeEnd("a");
+    //访问者
+    function Visitor() {
+        this.visit = function (concreteElement , value) {
+            concreteElement.push(this,value);
+        }
+    }
 
-    console.time("b");
-    let b = 10000000;
-    for (; b--;) {}
-    console.timeEnd("b")
+    //元素类
+    function ConceteElement() {
+
+        this.push = function ( that ,value ) {
+            Array.prototype.push.call( that , value);
+        };
+        this.accept = function (visitor ,value) {
+            visitor.visit(this ,value);
+        }
+    }
+
+    //Client
+    const ele = new ConceteElement();
+    const v = new Visitor();
+    ele.accept( v ,2);
+
+    console.log(v);
 </script>
 </html>

@@ -1,0 +1,18 @@
+{
+  "presets": [/*是一个智能预设。根据浏览器和运行环境，自动的确定 babel 插件和 polyfills 。*/
+    [
+      '@babel/preset-env',
+      {
+        'target': {
+          "browser":["ie>=8","chrome>=62"],
+          "node":"8.9.0",
+          "safari":"tp"
+        },
+        "modules":false,
+        "debug":true,
+        "uglify":true
+        "useBuiltIns":true
+      }
+    ]
+  ]
+}
