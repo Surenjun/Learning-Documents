@@ -1,6 +1,6 @@
 module.exports = {
     "extends": "standard",
-    "parser": "babel-eslint",
+    "parser": "Babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true,

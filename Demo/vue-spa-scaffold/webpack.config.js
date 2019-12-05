@@ -68,9 +68,9 @@ module.exports = {
         loader: 'vue-loader'
       },
       {
-        // babel-loader (ES6)
+        // Babel-loader (ES6)
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'Babel-loader',
         exclude: /node_modules/
       },
       {

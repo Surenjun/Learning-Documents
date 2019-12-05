@@ -63,11 +63,11 @@ const localConfig = {
                 }
             ]
         }, {
-            // babel-loader  (ES6)
+            // Babel-loader  (ES6)
             test: /\.jsx?$/,
             exclude: /node_modules/,
             use: {
-                loader: 'babel-loader'
+                loader: 'Babel-loader'
             }
         }, {
             // eslint-loader

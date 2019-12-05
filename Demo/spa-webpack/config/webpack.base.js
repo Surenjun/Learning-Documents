@@ -47,9 +47,9 @@ module.exports = {
                 include: path.resolve(__dirname, '../src') // 精确指定要处理的目录
             },
             {
-                // babel-loader (ES6)
+                // Babel-loader (ES6)
                 test: /\.js$/,
-                use:['babel-loader?cacheDirectory','happypack/loader?id=babel'], //缓存loader执行结果 发现打包速度已经明显提升了
+                use:['Babel-loader?cacheDirectory','happypack/loader?id=Babel'], //缓存loader执行结果 发现打包速度已经明显提升了
                 exclude: file => /node_modules/.test(file),
                 include: path.resolve(__dirname, '../src')
             },
@@ -86,8 +86,8 @@ module.exports = {
             chunkFilename: _modeFlag?"styles/[id].[hash:5].css":"styles/[name].css"
         }),
         new HappyPack({  // 基础参数设置
-            id: 'babel', // 上面loader?后面指定的id
-            loaders: ['babel-loader?cacheDirectory'], // 实际匹配处理的loader
+            id: 'Babel', // 上面loader?后面指定的id
+            loaders: ['Babel-loader?cacheDirectory'], // 实际匹配处理的loader
             threadPool: happyThreadPool,
             // cache: true // 已被弃用
             verbose: true

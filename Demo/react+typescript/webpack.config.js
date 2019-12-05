@@ -48,7 +48,7 @@ const webpackConfig = {
                 include: [resolve("src")],
                 exclude: /node_modules/,
                 // loader: "awesome-typescript-loader"
-                loader: "babel-loader"
+                loader: "Babel-loader"
             }
         ]
     },

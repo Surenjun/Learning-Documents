@@ -8,18 +8,13 @@
 
 </body>
 <script>
-    const eat = {
-        getEat:() => '🍗',
-    };
-    const drink = {
-        getDrink:() => '🍺'
-    };
-    let subday = {
-        __proto__ : drink,
-        getDrink(){
-            return super.getDrink() + '🎧'
-        }
-    }
-    console.log(subday.getDrink())
+    console.time("a");
+    for (let a = 1; a < 10000000; a++) {}
+    console.timeEnd("a");
+
+    console.time("b");
+    let b = 10000000;
+    for (; b--;) {}
+    console.timeEnd("b")
 </script>
 </html>
