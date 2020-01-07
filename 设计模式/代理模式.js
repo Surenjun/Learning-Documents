@@ -4,7 +4,6 @@ const obj = {
     age:23,
     sex:"男"
 };
-
 let hanlder = {
     get(target,key){
         console.log(`正在访问${target}`);
@@ -14,6 +13,5 @@ let hanlder = {
         return target[key] = value;
     }
 };
-
 let proxyObj = new Proxy(obj , hanlder);
 console.log(proxyObj.name);
