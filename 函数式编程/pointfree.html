@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pointfree模式</title>
+</head>
+<body>
+    <script>
+
+        /*
+         * 简单来说就是单一职责 让代码保持简洁和通用
+         */
+
+        {
+            const f = str => str.toUpperCase().split(' ');
+        }
+
+        {
+            const  toUpperCase = word => word.toUpperCase();
+            const  split = x => (str => str.split(x));
+            const  f = compose(split(' '), toUpperCase);
+        }
+
+
+        f("abcd efgh")
+    </script>
+</body>
+</html>

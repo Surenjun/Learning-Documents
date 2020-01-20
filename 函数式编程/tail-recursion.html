@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>尾递归</title>
+</head>
+<body>
+    <script>
+
+    /*
+     *   尾递归的判断标准是函数运行【最后一步】是否调用自身，
+     *   而不是是否在函数的【最后一行】调用自身,最后一行调用其他函数并返回叫尾调用
+     */
+
+    //场景：生成一个斐波那契数列 满足递推公式 F(n)=F(n-1)+F(n-2) 用语言描述就是后一项等于前两项和
+    //不是尾递规
+    function fibonacci(n) {
+        if(n === 1 || n === 0 ) return n;
+        return fibonacci(n-1) + fibonacci(n -2);
+    }
+
+    //是尾递规
+    function fibonacci1(n, ret1 = 1, ret2 =1) {
+        if(n === 1) return ret2;
+        if(n === 0) return 0;
+        return fibonacci1(n-1, ret2, ret1 + ret2);
+    }
+    console.time('fibonacci');
+    //console.log(fibonacci(40, 0, 1));
+    console.log(fibonacci(40));
+    console.timeEnd('fibonacci');
+
+    //尾递归快就快在它不需要重复计算某一项，利用了一种技巧就是每次递归调用时，它会把之前已经计算好的结果以参数的形式传递过去
+    console.time('fibonacci1');
+    console.log(fibonacci1(40));
+    console.timeEnd('fibonacci1');
+</script>
+</body>
+</html>

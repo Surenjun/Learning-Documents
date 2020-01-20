@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>柯里化函数</title>
+</head>
+<body>
+    <script>
+
+        /*
+         *     柯里化(Curried) 通过偏应用函数实现。
+         *     提前接收部分参数，延迟执行，不立即输出结果，而是返回一个接受剩余参数的函数
+         *     事实上柯里化是一种“预加载”函数的方法，通过传递较少的参数，得到一个已经记住了这些参数的新函数，
+         *     某种意义上讲，这是一种 对参数的“缓存”
+         */
+
+        /*
+         *    延迟计算场景 点5个菜的话有满减活动
+         */
+
+        function curry(func ) {
+
+            return function curried(...args) {
+                //如果参数大于等于函数参数，那么允许函数提供全部参数被正常调用
+                if (args.length >= 5 ) {
+                    return func.apply(this);
+                } else {
+                    //条件未达成把原来传入的参数拼接保存起来 返回出出去
+                    return function (...args2) {
+                        return curried.apply(this, args.concat(args2));
+                    }
+                }
+            };
+
+        }
+
+        const getDiscount = (...args) => console.log('满足条件了哦 减10块');
+
+        let curriedSum = curry( getDiscount  );
+
+        curriedSum(1)(2)(3);
+        curriedSum(1) (2,3,4) (5);   // =>满足
+        curriedSum(1)(2)(3)(4)(5); // =>满足
+        curriedSum(1)(2,3)(4);
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compose</title>
+</head>
+<body>
+    <script>
+
+        //函数式编程中最重要的一个函数
+        function compose(...funcs) {
+            return funcs.reduce((a, b) => (...args) => a(b(...args)));
+        }
+
+        //场景
+        const greet = function (name) { return 'hi:' + name };
+        const exclaim = function (statement) { return statement.toUpperCase() + '!' };
+        const transform = function (str) { return str.replace(/[SU]/, 'Compose') };
+
+        {   //不做任何处理的情况下
+            const myName = transform(
+                exclaim(
+                    greet('surenjun')
+                )
+            );
+            console.log(myName);
+        }
+
+        {
+            //使用compose函数
+            const myName = compose(transform, exclaim, greet)('surenjun');
+
+            const myName1 = compose(transform  , compose( exclaim, greet))('surenjun');
+
+            const myName2 = compose( compose(transform, exclaim) , greet)('surenjun');
+
+            console.log(myName , myName1 ,myName2);
+        }
+
+
+        //redux的中间件原理
+
+
+    </script>
+</body>
+</html>

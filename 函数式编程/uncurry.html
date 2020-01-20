@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>反柯里化</title>
+</head>
+<body>
+    <script type="text/javascript">
+        /**
+         * 跟柯里化相比正好相反，扩大适用范围，创建一个应用范围更广的函数。使本来只有特定对象才适用的方法，扩展到更多的对象
+         */
+
+        Function.prototype.uncurrying = function () {
+            const _this = this;
+            return function () {
+                return _this.apply(arguments[0], [].slice.call(arguments, 1))
+            }
+        };
+
+        //对象借用数组的方法
+        const Mypush = Array.prototype.push.uncurrying();
+        const obj = { a: '嘻嘻' };
+        Mypush(obj, '呵呵', '哈哈', '嘿嘿');
+        console.log(obj);
+
+        //对象借用数组的map方法
+        const myMap = Array.prototype.map.uncurrying();
+        const obj1 = { 0: '😂' , 1:'😁' ,2: '😄',length: 3};
+        myMap( obj1 , (item)=>{console.log(item);});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>偏函数</title>
+</head>
+<body>
+    <script type="text/javascript">
+        /*
+         *   传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数。
+         *   偏函数之所以“偏”，在就在于其只能处理那些能与至少一个case语句匹配的输入，而不能处理所有可能的输入。
+         */
+
+        // 带⼀个函数参数 和 该函数的部分参数
+        const partial = (f, ...args) =>
+            (...moreArgs) =>
+                f(...args, ...moreArgs);
+
+        const add = function(a, b, c) {return a + b + c};
+        const fivePlus = partial(add, 2, 3);
+
+        console.log(fivePlus(4));
+    </script>
+</body>
+</html>

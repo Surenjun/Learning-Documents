@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memorize的实现</title>
+</head>
+<body>
+    <script>
+
+        //memorize 函数实现。
+        //JSON.stringify针对特殊类型的处理
+        function memorize(func) {
+            const cache = new Map();
+            return function(...args) {
+                const key = JSON.stringify(args);
+                if (cache.has(key)) {
+                    return cache.get(key);
+                }
+                const result = func.apply(this, args);
+                cache.set(key, result);
+                return result
+            }
+        }
+
+    </script>
+</body>
+</html>

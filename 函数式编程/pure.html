@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>纯函数</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        //1.如果函数的调用参数相同，则永远返回相同的结果。它不依赖于程序执行期间函数外部任何状态或数据的变化，必须只依赖于其输入参数。
+        //2.该函数不会产生任何可观察的副作用，
+
+        //1、纯函数吗？
+        const tax = 20;
+        function calculateTax(productPrice) {
+            return (productPrice * (tax/100)) + productPrice;
+        }
+
+        //2、纯函数吗？
+        function priceAfterTax(productPrice) {
+            return (productPrice * 0.20) + productPrice;
+        }
+
+        //3、纯函数吗？
+        const a = [1,2,3];
+        function splice(arr) {
+            return arr.splice(arr, 1);
+        }
+        splice(a);
+
+        //4、纯函数吗？
+        const obj = {a: 1};
+        function test(b) {
+            obj.a ++;
+            return b+1;
+        }
+        test(0);
+
+    </script>
+</body>
+</html>
