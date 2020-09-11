@@ -43,6 +43,6 @@
     "webpack-dev-server": "^3.7.1",
     "webpack-merge": "^4.2.1",
     "webpack-parallel-uglify-plugin": "^1.1.0",
-    "yargs-parser": "^13.1.1"
+    "yargs-parser": "^13.1.2"
   }
 }
